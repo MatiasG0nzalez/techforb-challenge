@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  # PostgreSQL
+  postgres:
+    image: postgres:latest
+    container_name: mi-postgres
+    environment:
+      POSTGRES_USER: "techforbe"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "userdb"
+    ports:
+      - "5432:5432"
+
+  # Aplicación Java 11 con Spring Boot y Maven
+  mi-aplicacion:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: techforbe-challenge
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+
+
